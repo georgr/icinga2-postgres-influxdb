@@ -1,5 +1,10 @@
 FROM debian:buster-slim
 
+ENV PG_HOST \
+    PG_USER=icinga \
+    PG_PASS \
+    PG_DB=icinga
+
 # add & update apt sources
 RUN  export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
@@ -17,3 +22,5 @@ RUN  export DEBIAN_FRONTEND=noninteractive \
     nagios-snmp-plugins \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
+
+CMD ["/etc/init.d/icinga2","foreground"]
